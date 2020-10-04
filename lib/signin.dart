@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SignUp extends StatefulWidget {
+class SignIn extends StatefulWidget {
   @override
-  _SignUpState createState() => _SignUpState();
+  _SignInState createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
-  final _signUpKey = GlobalKey<FormState>();
+class _SignInState extends State<SignIn> {
+  final _signInKey = GlobalKey<FormState>();
   final email = TextEditingController();
   final password = TextEditingController();
   final _auth = FirebaseAuth.instance;
@@ -16,10 +16,10 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign Up"),
+        title: Text("Sign In"),
       ),
       body: Form(
-        key: _signUpKey,
+        key: _signInKey,
         child: Column(
           children: <Widget>[
             TextFormField(
@@ -49,15 +49,15 @@ class _SignUpState extends State<SignUp> {
               },
             ),
             MaterialButton(
-              child: Text("SIGN UP"),
+              child: Text("SIGN IN"),
               onPressed: () async {
-                dynamic resultOfSignUp = await signUp(email.text, password.text);
-                if(resultOfSignUp == null){
-                  print("Sign Up Failed !!!");
-                  print(resultOfSignUp);
+                dynamic resultOfSignIn = await signIn(email.text, password.text);
+                if(resultOfSignIn == null){
+                  print("Sign In Failed !!!");
+                  print(resultOfSignIn);
                 }else{
-                  print("Sign Up Successfull !!!");
-                  print(resultOfSignUp);
+                  print("Sign In Successfull !!!");
+                  print(resultOfSignIn);
                 }
               },
             )
@@ -67,19 +67,18 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Future<UserCredential> signUp(String email, String password) async {
+  Future<UserCredential> signIn(String email, String password) async {
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return userCredential;
+      return (userCredential);
     } on FirebaseAuthException catch (e) {
-      if (e.code == "weak-password") {
-        print("Password is weak, Please enter a strong password");
-      } else if (e.code == "email-already-in-use") {
-        print("Email is already registered");
+      if (e.code == "user-not-found") {
+        print("No user found with that email");
+      } else if (e.code == "wrong-password") {
+        print("Wrong Password");
       }
       return null;
     } catch (e) {
