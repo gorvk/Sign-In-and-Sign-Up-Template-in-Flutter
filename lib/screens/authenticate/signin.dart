@@ -14,15 +14,13 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sign In"),
-      ),
-      body: Form(
-        key: _signInKey,
-        child: Column(
-          children: <Widget>[
-            TextFormField(
+    return Form(
+      key: _signInKey,
+      child: Column(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 120, left: 50, right: 50),
+            child: TextFormField(
               controller: email,
               decoration: InputDecoration(
                 hintText: "Email",
@@ -35,7 +33,10 @@ class _SignInState extends State<SignIn> {
                 return null;
               },
             ),
-            TextFormField(
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 15, left: 50, right: 50),
+            child: TextFormField(
               controller: password,
               obscureText: true,
               decoration: InputDecoration(
@@ -48,21 +49,31 @@ class _SignInState extends State<SignIn> {
                 return null;
               },
             ),
-            MaterialButton(
-              child: Text("SIGN IN"),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: MaterialButton(
+              child: Text(
+                "SIGN IN",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              color: Colors.blue,
               onPressed: () async {
-                dynamic resultOfSignIn = await signIn(email.text, password.text);
-                if(resultOfSignIn == null){
+                dynamic resultOfSignIn =
+                    await signIn(email.text, password.text);
+                if (resultOfSignIn == null) {
                   print("Sign In Failed !!!");
                   print(resultOfSignIn);
-                }else{
+                } else {
                   print("Sign In Successfull !!!");
                   print(resultOfSignIn);
                 }
               },
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

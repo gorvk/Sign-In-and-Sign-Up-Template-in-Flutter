@@ -1,8 +1,8 @@
-import 'package:TodoApp/signin.dart';
-import 'package:TodoApp/signup.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:TodoApp/screens/wrapper.dart';
+import 'package:TodoApp/screens/authenticate/signup.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,11 @@ class MyApp extends StatelessWidget {
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
     return MaterialApp(
-      home: SignIn(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Wrapper(),
+        '/signup': (context) => SignUp(),
+      },
     );
   }
 }
