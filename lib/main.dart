@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Wrapper(),
         '/signup': (context) => SignUp(),
+        '/wrapper': (context) => Wrapper(),
       },
     );
   }

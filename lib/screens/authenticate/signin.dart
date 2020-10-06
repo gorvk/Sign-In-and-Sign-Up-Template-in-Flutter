@@ -68,6 +68,7 @@ class _SignInState extends State<SignIn> {
                   print(resultOfSignIn);
                 } else {
                   print("Sign In Successfull !!!");
+                  Navigator.pushNamed(context, '/');                  
                   print(resultOfSignIn);
                 }
               },
