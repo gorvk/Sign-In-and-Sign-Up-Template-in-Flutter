@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 
 class Wrapper extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
-    if(_auth.currentUser == null){
+    return wrapperAuth();
+  }
+
+  Widget wrapperAuth() {
+    if (_auth.currentUser == null) {
       print('Portal');
       return Portal();
-    }else{
+    } else {
       print('Home');
       return Home();
     }
