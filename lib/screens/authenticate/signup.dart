@@ -1,4 +1,3 @@
-import 'package:TodoApp/screens/components/appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,67 +15,104 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Color(0xFF006655),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: Form(
         key: _signUpKey,
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 120, left: 50, right: 50),
-              child: TextFormField(
-                controller: email,
-                decoration: InputDecoration(
-                  hintText: "Email",
-                ),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter your Email Address";
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15, left: 50, right: 50),
-              child: TextFormField(
-                controller: password,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Password",
-                ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter a Password";
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: MaterialButton(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 100),
                 child: Text(
-                  "SIGN UP",
+                  "Todo App",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    fontFamily: "Cursive",
+                    color: Color(0xFF006655),
+                    fontSize: 60,
                   ),
                 ),
-                color: Colors.blue,
-                onPressed: () async {
-                  dynamic resultOfSignUp =
-                      await signUp(email.text, password.text);
-                  if (resultOfSignUp == null) {
-                    print("Sign Up Failed !!!");
-                    print(resultOfSignUp);
-                  } else {
-                    print("Sign Up Successfull !!!");
-                    print(resultOfSignUp);
-                  }
-                },
               ),
-            )
-          ],
+              Container(
+                margin: EdgeInsets.only(top: 50, left: 50, right: 50),
+                child: TextFormField(
+                  controller: email,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF006655),
+                      ),
+                    ),
+                    hintStyle: TextStyle(
+                      color: Color(0xFF006655),
+                    ),
+                    hintText: "Email",
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Please enter your Email Address";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15, left: 50, right: 50),
+                child: TextFormField(
+                  controller: password,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF006655),
+                      ),
+                    ),
+                    hintStyle: TextStyle(
+                      color: Color(0xFF006655),
+                    ),
+                    hintText: "Password",
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Please enter a Password";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                child: MaterialButton(
+                  child: Text(
+                    "SIGN UP",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  color: Color(0xFF006655),
+                  onPressed: () async {
+                    dynamic resultOfSignUp =
+                        await signUp(email.text, password.text);
+                    if (resultOfSignUp == null) {
+                      print("Sign Up Failed !!!");
+                      print(resultOfSignUp);
+                    } else {
+                      print("Sign Up Successfull !!!");
+                      print(resultOfSignUp);
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

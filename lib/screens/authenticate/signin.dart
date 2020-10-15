@@ -19,10 +19,22 @@ class _SignInState extends State<SignIn> {
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 120, left: 50, right: 50),
+            margin: EdgeInsets.only(
+              top: 50,
+              left: 50,
+              right: 50,
+            ),
             child: TextFormField(
               controller: email,
               decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFF006655),
+                  ),
+                ),
+                hintStyle: TextStyle(
+                  color: Color(0xFF006655),
+                ),
                 hintText: "Email",
               ),
               keyboardType: TextInputType.emailAddress,
@@ -40,6 +52,14 @@ class _SignInState extends State<SignIn> {
               controller: password,
               obscureText: true,
               decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFF006655),
+                  ),
+                ),
+                hintStyle: TextStyle(
+                  color: Color(0xFF006655),
+                ),
                 hintText: "Password",
               ),
               validator: (value) {
@@ -59,7 +79,7 @@ class _SignInState extends State<SignIn> {
                   color: Colors.white,
                 ),
               ),
-              color: Colors.blue,
+              color: Color(0xFF006655),
               onPressed: () async {
                 dynamic resultOfSignIn =
                     await signIn(email.text, password.text);
@@ -67,7 +87,7 @@ class _SignInState extends State<SignIn> {
                   print("Sign In Failed !!!");
                   print(resultOfSignIn);
                 } else {
-                  print("Sign In Successfull !!!");                 
+                  print("Sign In Successfull !!!");
                   print(resultOfSignIn);
                 }
               },

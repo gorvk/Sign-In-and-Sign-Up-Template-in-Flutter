@@ -1,7 +1,6 @@
-import 'package:TodoApp/screens/components/appbar.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
@@ -11,7 +10,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      // appBar: CustomAppBar(),
       body: Center(
         child: Column(
           children: [

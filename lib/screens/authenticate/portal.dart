@@ -1,22 +1,33 @@
 import 'package:TodoApp/screens/authenticate/signin.dart';
-import 'package:TodoApp/screens/components/appbar.dart';
 import 'package:flutter/material.dart';
 
 class Portal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      backgroundColor: Colors.white,
       body: Container(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 150),
+                child: Text(
+                  "Todo App",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Cursive",
+                    color: Color(0xFF006655),
+                    fontSize: 60,
+                  ),
+                ),
+              ),
               SignIn(),
               Container(
                 margin: EdgeInsets.only(top: 10, left: 100, right: 100),
                 child: MaterialButton(
                   padding: EdgeInsets.all(10),
-                  color: Colors.blue,
+                  color: Color(0xFF006655),
                   child: Row(
                     children: [
                       Padding(
