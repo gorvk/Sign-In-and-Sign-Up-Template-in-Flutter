@@ -15,16 +15,24 @@ class Home extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              child: Text(_auth.currentUser.email),
-              margin: EdgeInsets.only(top: 10),
+              child: Container(
+                margin: EdgeInsets.only(top: 50),
+                child: Text(
+                  _auth.currentUser.email,
+                  style: TextStyle(
+                    color: Color(0xFF006655),
+                  ),
+                ),
+              ),
+              margin: EdgeInsets.only(top: 250),
             ),
             Container(
-              margin: EdgeInsets.only(top: 200),
+              margin: EdgeInsets.only(top: 10),
               child: MaterialButton(
                 onPressed: () async {
                   await _auth.signOut();
                 },
-                color: Colors.blue,
+                color: Color(0xFF006655),
                 child: Text(
                   "SIGN OUT",
                   style: TextStyle(color: Colors.white),

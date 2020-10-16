@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
+  final Function toggleView;
+  SignUp({this.toggleView});
+
   @override
   _SignUpState createState() => _SignUpState();
 }
@@ -17,11 +20,23 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Color(0xFF006655),
-        ),
         backgroundColor: Colors.white,
         elevation: 0,
+        actions: <Widget>[
+          Container(
+            padding: EdgeInsets.only(right: 272),
+            child: FlatButton.icon(
+              textColor: Color(0xFF006655),
+              icon: Icon(Icons.arrow_back),
+              label: Text(
+                "",
+              ),
+              onPressed: () {
+                widget.toggleView();
+              },
+            ),
+          )
+        ],
       ),
       body: Form(
         key: _signUpKey,
@@ -45,8 +60,14 @@ class _SignUpState extends State<SignUp> {
                 child: TextFormField(
                   controller: email,
                   decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
+                    enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
+                        color: Color(0xFF006655),
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 1.8,
                         color: Color(0xFF006655),
                       ),
                     ),
@@ -70,8 +91,14 @@ class _SignUpState extends State<SignUp> {
                   controller: password,
                   obscureText: true,
                   decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
+                    enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
+                        color: Color(0xFF006655),
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        width: 1.8,
                         color: Color(0xFF006655),
                       ),
                     ),
