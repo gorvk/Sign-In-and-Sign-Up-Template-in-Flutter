@@ -14,6 +14,7 @@ class _NewAudioState extends State<NewAudio> {
   String _absolutePath;
   File _fileToUpload;
   AudioPlayer audioPlayer;
+  String uploadStatus = " ";
   bool pause = false;
   bool initialPlay = true;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
@@ -84,52 +85,6 @@ class _NewAudioState extends State<NewAudio> {
                   openAudioPicker();
                 },
               ),
-              _absolutePath != null
-                  ? Container(
-                      margin: EdgeInsets.only(top: 20, left: 80, right: 80),
-                      color: Color(0x88092E34),
-                      padding: EdgeInsets.all(0),
-                      child: Row(
-                        children: [
-                          pause == false
-                              ? initialPlay == true
-                                  ? Container(
-                                      margin: EdgeInsets.only(left: 55),
-                                      child: IconButton(
-                                        icon: Icon(Icons.play_arrow),
-                                        onPressed: () {
-                                          playAudio();
-                                        },
-                                      ),
-                                    )
-                                  : Container(
-                                      margin: EdgeInsets.only(left: 55),
-                                      child: IconButton(
-                                        icon: Icon(Icons.play_arrow),
-                                        onPressed: () {
-                                          resumeAudio();
-                                        },
-                                      ),
-                                    )
-                              : Container(
-                                  margin: EdgeInsets.only(left: 55),
-                                  child: IconButton(
-                                    icon: Icon(Icons.pause),
-                                    onPressed: () {
-                                      pauseAudio();
-                                    },
-                                  ),
-                                ),
-                          IconButton(
-                            icon: Icon(Icons.stop),
-                            onPressed: () {
-                              stopAudio();
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container(),
               Container(
                 padding: EdgeInsets.only(left: 60, right: 60),
                 margin: EdgeInsets.only(top: 20, bottom: 30),
@@ -163,6 +118,7 @@ class _NewAudioState extends State<NewAudio> {
                   uploadImageToFirebase(context);
                 },
               ),
+              Text(uploadStatus),
             ],
           ),
         ),
@@ -174,52 +130,34 @@ class _NewAudioState extends State<NewAudio> {
     var file = await FilePicker.getFile(
         type: FileType.audio, allowedExtensions: extensions);
     setState(() {
+      uploadStatus = " ";
       _fileToUpload = file;
       _absolutePath = file.path;
     });
   }
 
-  void playAudio() async {
-    await audioPlayer.play(_absolutePath);
-    setState(() {
-      pause = !pause;
-    });
-  }
 
-  void pauseAudio() async {
-    await audioPlayer.pause();
-    setState(() {
-      pause = !pause;
-    });
-  }
-
-  void stopAudio() async {
-    await audioPlayer.stop();
-    setState(() {
-      pause = false;
-    });
-  }
-
-  void resumeAudio() async {
-    await audioPlayer.resume();
-  }
 
   Future uploadImageToFirebase(BuildContext context) async {
     // String fileName = _absolutePath;
+    setState(() {
+      uploadStatus = "Uploading...";
+    });
     File file = _fileToUpload;
     Reference ref = firebaseStorage.ref(fileName.text);
     await ref.putFile(file);
     ref.getDownloadURL().then(
       (url) {
-        audiofiles
-            .add(
-              {
-                'name': fileName.text,
-                'url': url,
-              },
-            )
-            .then((value) => print("Podcast Uploaded"))
-            .catchError((error) => print("Failed to upload podcast!!"));
+        audiofiles.add(
+          {
+            'name': fileName.text,
+            'url': url,
+          },
+        ).then((value) {
+          setState(() {
+            uploadStatus = "Uploaded.";
+          });
+        }).catchError((error) => print("Failed to upload podcast!!"));
       },
     );
   }
@@ -238,3 +176,74 @@ class _NewAudioState extends State<NewAudio> {
 //         ),
 //     ),
 // ),
+
+  //             _absolutePath != null
+  //                 ? Container(
+  //                     margin: EdgeInsets.only(top: 20, left: 80, right: 80),
+  //                     color: Color(0x88092E34),
+  //                     padding: EdgeInsets.all(0),
+  //                     child: Row(
+  //                       children: [
+  //                         pause == false
+  //                             ? initialPlay == true
+  //                                 ? Container(
+  //                                     margin: EdgeInsets.only(left: 55),
+  //                                     child: IconButton(
+  //                                       icon: Icon(Icons.play_arrow),
+  //                                       onPressed: () {
+  //                                         playAudio();
+  //                                       },
+  //                                     ),
+  //                                   )
+  //                                 : Container(
+  //                                     margin: EdgeInsets.only(left: 55),
+  //                                     child: IconButton(
+  //                                       icon: Icon(Icons.play_arrow),
+  //                                       onPressed: () {
+  //                                         resumeAudio();
+  //                                       },
+  //                                     ),
+  //                                   )
+  //                             : Container(
+  //                                 margin: EdgeInsets.only(left: 55),
+  //                                 child: IconButton(
+  //                                   icon: Icon(Icons.pause),
+  //                                   onPressed: () {
+  //                                     pauseAudio();
+  //                                   },
+  //                                 ),
+  //                               ),
+  //                         IconButton(
+  //                           icon: Icon(Icons.stop),
+  //                           onPressed: () {
+  //                             stopAudio();
+  //                           },
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   )
+  //                 : Container(),
+  // void playAudio() async {
+  //   await audioPlayer.play(_absolutePath);
+  //   setState(() {
+  //     pause = !pause;
+  //   });
+  // }
+
+  // void pauseAudio() async {
+  //   await audioPlayer.pause();
+  //   setState(() {
+  //     pause = !pause;
+  //   });
+  // }
+
+  // void stopAudio() async {
+  //   await audioPlayer.stop();
+  //   setState(() {
+  //     pause = false;
+  //   });
+  // }
+
+  // void resumeAudio() async {
+  //   await audioPlayer.resume();
+  // }
