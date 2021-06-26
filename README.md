@@ -1,4 +1,4 @@
-# SignIn and SignUp Template in Flutter
+# Music Player using Flutter
 
 ## Authentication Page
 - Firebase is used for Authentication.
